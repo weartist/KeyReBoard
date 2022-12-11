@@ -7,7 +7,7 @@ use block::ConcreteBlock;
 // use objc_id::Id;
 use cacao::foundation::{NSString};
 use objc::{class, msg_send, sel, sel_impl, runtime::Object};
-use tauri::{Manager, EventHandler, AppHandle};
+use tauri::{Manager, AppHandle};
 
 // the payload type must implement `Serialize` and `Clone`.
 #[derive(Clone, serde::Serialize)]

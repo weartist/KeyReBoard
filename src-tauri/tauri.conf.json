@@ -53,7 +53,7 @@
     "updater": {
       "active": false
     },
-    "macOSPrivateApi": false,
+    "macOSPrivateApi": true,
     "windows": [
       {
         "fullscreen": false,
@@ -63,7 +63,7 @@
         "minHeight": 100,
         "resizable": false,
         "title": "h",
-        "transparent": false,
+        "transparent": true,
         "alwaysOnTop": true,
         "decorations": false
       }
