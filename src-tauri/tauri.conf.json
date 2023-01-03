@@ -1,9 +1,9 @@
 {
   "build": {
-    "beforeBuildCommand": "",
-    "beforeDevCommand": "",
-    "devPath": "../ui",
-    "distDir": "../ui",
+    "beforeBuildCommand": "pnpm run dev",
+    "beforeDevCommand": "pnpm run build",
+    "devPath": "http://localhost:1451",
+    "distDir": "../dist",
     "withGlobalTauri": true
   },
   "package": {
@@ -73,10 +73,10 @@
         "minWidth": 100,
         "minHeight": 100,
         "resizable": true,
-        "title": " ",
         "transparent": true,
         "alwaysOnTop": true,
-        "decorations": false
+        "decorations": false,
+        "titleBarStyle": "Transparent"
       }
     ]
   }
