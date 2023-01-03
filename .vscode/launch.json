@@ -20,7 +20,26 @@
                   ]
             },
             "args": [],
+            // "preLaunchTask": "ui:dev",
             "cwd": "${workspaceFolder}"
-        }
+        },
+        {
+            "name": "Front-end App Debug",
+            "type": "msedge",
+            "port": 9222,
+            "request": "launch",
+            "runtimeExecutable": "${workspaceFolder}/src-tauri/target/debug/app", // Remember to edit the right path to your app.
+            "useWebView": true,
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "ui:dev"
+          },   
+          {
+            "type": "msedge",
+            "request": "attach",
+            "name": "Attach to tauri webview",
+            "port": 15567,
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true
+          }
     ]
 }

@@ -18,6 +18,13 @@
         "setPosition": true,
         "setFocus": false,
         "startDragging": true
+      },
+      "fs": {
+        "all": true,
+        "scope": ["$APP/*", "$DESKTOP/*"]
+      },
+      "path": {
+        "all": true
       }
     },
     "bundle": {
@@ -63,12 +70,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 300,
-        "width": 300,
         "minWidth": 100,
         "minHeight": 100,
-        "resizable": false,
-        "title": "h",
+        "resizable": true,
+        "title": " ",
         "transparent": true,
         "alwaysOnTop": true,
         "decorations": false
