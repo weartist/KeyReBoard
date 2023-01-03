@@ -22,6 +22,7 @@ objc = "0.2.7"
 cacao = {}
 block = "0.1.6"
 objc_id = "0.1.1"
+lazy_static = {}
 
 
 

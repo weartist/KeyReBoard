@@ -44,6 +44,7 @@ version = "0.1.0"
 dependencies = [
  "block",
  "cacao",
+ "lazy_static",
  "objc",
  "objc_id",
  "serde",
