@@ -1,191 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-	</title>
-	<script type="module" src="/src/main.ts" defer></script>
+    <title>Hello World</title>
+    <!-- <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
+    Don't use this in production:
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
   </head>
-  <body data-tauri-drag-region style="background-color: rgba(234, 25, 25, 0.5); opacity: 0.5;">    
-    <link href="/src/keyboards_layout.css" rel="stylesheet" />
-	<div data-tauri-drag-region id="keyboard">
-		<div data-tauri-drag-region class="row">
-			<div data-tauri-drag-region class="col">
-				<div data-tauri-drag-region class="row mac-fkeys">
-					<button id="ESCAPE">Esc</button>
-					<button id="F1">F1</button>
-					<button id="F2">F2</button>
-					<button id="F3">F3</button>
-					<button id="F4">F4</button>
-					<button id="F5">F5</button>
-					<button id="F6">F6</button>
-					<button id="F7">F7</button>
-					<button id="F8">F8</button>
-					<button id="F9">F9</button>
-					<button id="F10">F10</button>
-					<button id="F11">F11</button>
-					<button id="F12">F12</button>
-					<button id="EJECT" style="width: calc(var(--scale) * 63px)">Eject</button>
-				</div>
-			</div>
-			<div data-tauri-drag-region class="col">
-				<div data-tauri-drag-region class="row">
-					<div data-tauri-drag-region class="spacer-small"></div>
-					<button id="F13">F13</button>
-					<button id="F14">F14</button>
-					<button id="F15">F15</button>
-					<div data-tauri-drag-region class="spacer-small"></div>
-					<button id="F16">F16</button>
-					<button id="F17">F17</button>
-					<button id="F18">F18</button>
-					<button id="F19">F19</button>
-				</div>
-			</div>
-		</div>
-		<div data-tauri-drag-region class="row">
-			<div data-tauri-drag-region class="spacer-small"></div>
-		</div>
-		<div data-tauri-drag-region class="row">
-			<button id="SECTION">&#167;</button>
-			<button id="1" class="1 !">1</button>
-			<button id="2">2</button>
-			<button id="3">3</button>
-			<button id="4">4</button>
-			<button id="5">5</button>
-			<button id="6">6</button>
-			<button id="7">7</button>
-			<button id="8">8</button>
-			<button id="9">9</button>
-			<button id="0">0</button>
-			<button id="MINUS">-</button>
-			<button id="EQUAL">=</button>
-			<button id="BACKSPACE" style="width: calc(var(--scale) * 102px)">&larr;</button>
-			<div class="spacer-small"></div>
-			<button id="FN_KEY">fn</button>
-			<button id="HOME">&#8598;</button>
-			<button id="PAGE_UP">&#8593;</button>
-			<div class="spacer-small"></div>
-			<button id="CLEAR">Clear</button>
-			<button id="NUMPAD_EQUAL">=</button>
-			<button id="NUMPAD_SLASH">/</button>
-			<button id="NUMPAD_ASTERISK">*</button>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="row">
-					<button id="TAB" style="width: calc(var(--scale) * 72px)">&#8677;</button>
-					<button id="Q">Q</button>
-					<button id="W">W</button>
-					<button id="E">E</button>
-					<button id="R">R</button>
-					<button id="T">T</button>
-					<button id="Y">Y</button>
-					<button id="U">U</button>
-					<button id="I">I</button>
-					<button id="O">O</button>
-					<button id="P">P</button>
-					<button id="LEFT_BRACKET">[</button>
-					<button id="RIGHT_BRACKET">]</button>
-				</div>
-				<div class="row">
-					<button id="CAPSLOCK" style="width: calc(var(--scale) * 88px)">&#8682;</button>
-					<button id="A">A</button>
-					<button id="S">S</button>
-					<button id="D">D</button>
-					<button id="F">F</button>
-					<button id="G">G</button>
-					<button id="H">H</button>
-					<button id="J">J</button>
-					<button id="K">K</button>
-					<button id="L">L</button>
-					<button id="SEMICOLON">;</button>
-					<button id="SINGLE_QUOTE">'</button>
-					<button id="BACKSLASH">\</button>
-				</div>
-			</div>
-			<div class="col">
-				<button id="ENTER" class="high" style="width: calc(var(--scale) * 66px);">&crarr;</button>
-			</div>
-			<div class="col">
-				<div class="row">
-					<div class="spacer-small"></div>
-					<button id="DELETE">Delete</button>
-					<button id="END">&#8600;</button>
-					<button id="PAGE_DOWN">&#8595;</button>
-					<div class="spacer-small"></div>
-					<button id="NUMPAD_SEVEN">7</button>
-					<button id="NUMPAD_EIGHT">8</button>
-					<button id="NUMPAD_NINE">9</button>
-					<button id="NUMPAD_MINUS">-</button>
-				</div>
-				<div class="row">
-					<div class="spacer-small"></div>
-					<div class="spacer-key"></div>
-					<div class="spacer-key"></div>
-					<div class="spacer-key"></div>
-					<div class="spacer-small"></div>
-					<button id="NUMPAD_FOUR">4</button>
-					<button id="NUMPAD_FIVE">5</button>
-					<button id="NUMPAD_SIX">6</button>
-					<button id="NUMPAD_PLUS">+</button>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="row">
-					<button id="SHIFT" style="width: calc(var(--scale) * 70px)">&#8679;</button>
-					<button id="ACCENT_GRAVE">`</button>
-					<button id="Z">Z</button>
-					<button id="X">X</button>
-					<button id="C">C</button>
-					<button id="V">V</button>
-					<button id="B">B</button>
-					<button id="N">N</button>
-					<button id="M">M</button>
-					<button id="COMMA">,</button>
-					<button id="PERIOD">.</button>
-					<button id="SLASH">/</button>
-					<button id="SHIFT" style="width: calc(var(--scale) * 138px)">&#8679;</button>
-					<div class="spacer-small"></div>
-					<div class="spacer-key"></div>
-					<button id="UP_ARROW">&uarr;</button>
-					<div class="spacer-key"></div>
-					<div class="spacer-small"></div>
-					<button id="NUMPAD_ONE">1</button>
-					<button id="NUMPAD_TWO">2</button>
-					<button id="NUMPAD_THREE">3</button>
-				</div>
-				<div class="row">
-					<button id="CONTROL" style="width: calc(var(--scale) * 82px)">Ctrl</button>
-					<button id="ALT" style="width: calc(var(--scale) * 66px)">Alt</button>
-					<button id="COMMAND" style="width:calc(var(--scale) * 82px)">&#8984;</button>
-					<button id="SPACE" style="width: calc(var(--scale) * 327px)">Space</button>
-					<button id="COMMAND" style="width: calc(var(--scale) * 86px)">&#8984;</button>
-					<button id="ALT" style="width: calc(var(--scale) * 70px)">Alt</button>
-					<button id="CONTROL" style="width: calc(var(--scale) * 86px)">Ctrl</button>
-					<div class="spacer-small"></div>
-					<button id="LEFT_ARROW">&larr;</button>
-					<button id="DOWN_ARROW">&darr;</button>
-					<button id="RIGHT_ARROW">&rarr;</button>
-					<div class="spacer-small"></div>
-					<button id="NUMPAD_ZERO" class="wide">0</button>
-					<button id="NUMPAD_PERIOD">.</button>
-				</div>
-			</div>
-			<div class="col">
-				<button id="NUMPAD_ENTER" class="high">&crarr;</button>
-			</div>
-		</div>
-	</div>
-	<div data-tauri-drag-region class="mask" id="mask"></div>
-	<div data-tauri-drag-region style="background-color: rgba(87,87,87,0.5);">
-		<h1>waiting for input...</h1>
-	</div>
-	<!-- <script type="module"src="example.js"></script> -->
+  <body data-tauri-drag-region style="background-color: rgba(234, 25, 25, 0.5); opacity: 0.5;">
+    <div data-tauri-drag-region id="root" style="background-color: blue;"></div>
 
+    <h2>Add React in One Minute</h2>
+    <p>This page demonstrates using React with no build tooling.</p>
+    <p>React is loaded as a script tag.</p>
 
+    <!-- We will put our React component inside this div. -->
+    <div id="like-button-root"></div>
+
+    <div id="another-root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="like-button.js" type="text/babel"></script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
   </body>
 </html>

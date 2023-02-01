@@ -31,7 +31,7 @@ static mut STATE: Mutex<WindowData> = Mutex::new(WindowData{width: 800, height: 
 lazy_static!{
     static ref RECORDS: HashMap<&'static str, &'static str> = vec![
         // ("55", "CMD"),
-        // ("57", "CAPSLOCK"),
+        // ("57", "CAPS_LOCK"),
         // ("58", "LEFT_ALT"),
         // ("59", "LEFT_CTRL"),
         // ("56", "LEFT_SHIFT"),
@@ -84,14 +84,14 @@ struct WindowData {
     y: i32,
 }
 
-
+// #[warn(dead_code)
 fn ignore_mouse_event_for_window(app: AppHandle) {
     let main_window = app.get_window("main").unwrap();
     let _: _ = main_window.with_webview(|webview| {
         #[cfg(target_os = "macos")]
         unsafe {
             let _: () = msg_send![webview.ns_window(), setIgnoresMouseEvents: true];
-        }
+        }   
     });
 }
 
