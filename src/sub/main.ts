@@ -4,13 +4,13 @@ import { listen } from '@tauri-apps/api/event';
 
 // import { appWindow, LogicalPosition, LogicalSize } from '@tauri-apps/api/window'
 
-class Payload {
-  constructor(){}
-  message?: string;
-  reason?: number;
-  width?: number;
-  height?: number;
-}
+// class Payload {
+//   constructor(){}
+//   message?: string;
+//   reason?: number;
+//   width?: number;
+//   height?: number;
+// }
 
 
 // interface Size {
@@ -23,35 +23,33 @@ class Payload {
 //     y: number;
 // }
 
-interface Event {
-  payload: Payload
+
+type MessagePayload = {
+	message: string,
+	reason: Number
 }
 
-// interface LoadedPayload {
-//     loggedIn: boolean,
-//     token: string
-//   }
-
-listen('keyDown', (event: Event) => {
+listen<MessagePayload>('keyDown', (event) => {
 	console.log('receive event ' + event);
-	let hs = document.querySelector('h1') as HTMLElement | null;
+	let hs: HTMLHeadElement = document.querySelector('h1') as HTMLHeadElement;
 	console.log(event.payload.message)
     if (hs && event.payload.message) {
-        hs.innerText = event.payload.message;
+        if (event.payload.reason == 3) {
+
+            hs.innerText = event.payload.message;
+            return;
+        }
         let isDown = event.payload.reason == 1;
         let element_id = event.payload.message.toUpperCase();
-        // let button = document.getElementById(element_id);
-        let button = document.getElementsByClassName(element_id) as HTMLCollectionOf<Element>;
-        for (let index = 0; index < button.length; index++) {
-            const element = button[index];
-            if (isDown) {
-              element.classList.add("this_selected")
-            } else {
-              element.classList.remove("this_selected")
-            }
+
+        hs.innerText = '11 element id is: ' + element_id + "is down: " + isDown;
+        let button = document.getElementById(element_id) as HTMLElement;
+        if (isDown) {
+          button.classList.add("this_selected")
+        } else {
+          button.classList.remove("this_selected")
         }
     }
-
 })
 
 
