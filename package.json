@@ -1,5 +1,5 @@
 {
-  "name": "ke",
+  "name": "KeyReBoard",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,26 +10,30 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.2.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-react-app": "^3.1.2"
+    "@tauri-apps/api": "^1.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.2.2",
-    "typescript": "^4.8.2",
-    "vite": "^4.0.0"
+    "@types/node": "^18.7.10",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.2",
+    "@tauri-apps/cli": "^1.1.0"
   },
-  "description": "A cross-platform app that can visualize your keyboard actions and record them",
-  "main": "like-button.js",
+    "main": "like-button.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/weartist/KeyReBoard.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Hans",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/weartist/KeyReBoard/issues"
   },
-  "homepage": "https://github.com/weartist/KeyReBoard#readme"
+  "homepage": "https://github.com/weartist/KeyReBoard#readme",
+  "description": "A cross-platform app that can visualize your keyboard actions and record them"
 }
