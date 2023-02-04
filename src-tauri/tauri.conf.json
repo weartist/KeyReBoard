@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeBuildCommand": "pnpm run dev",
-    "beforeDevCommand": "pnpm run build",
+    "beforeBuildCommand": "pnpm run build",
+    "beforeDevCommand": "pnpm run dev",
     "devPath": "http://localhost:1451",
     "distDir": "../dist",
     "withGlobalTauri": true
@@ -42,7 +42,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "keyReBoard.hans",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
