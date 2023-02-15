@@ -30,7 +30,7 @@ static mut STATE: Mutex<WindowData> = Mutex::new(WindowData{width: 800, height: 
 
 lazy_static!{
     static ref RECORDS: HashMap<&'static str, &'static str> = vec![
-        // ("55", "CMD"),
+        ("55", "CMD"),
         // ("57", "CAPS_LOCK"),
         // ("58", "LEFT_ALT"),
         // ("59", "LEFT_CTRL"),
@@ -40,7 +40,7 @@ lazy_static!{
         // ("62", "RIGHT_CTRL"),
         // ctrl ,shift
         // ("36", "RETURN"),
-        // ("48", "TAB"),
+        ("48", "TAB"),
         // ("48", "TAB"), and left shift
         // ("50", "`"),
         // ("50", "`"), and left shift
@@ -83,6 +83,64 @@ struct WindowData {
     x: i32,
     y: i32,
 }
+
+fn isSelectModifierFlags(mask: u64, cur: u64) -> bool {
+    if (cur & mask) == cur {
+        return true;
+    }
+    return false;
+}
+
+
+fn latestModifierFlags(mask: u64) -> Vec<String>{
+    let mut result: Vec<String> = Vec::new();
+    if mask & 1 << 16 == 1 << 16 {
+        result.push(String::from("CapsLock"));
+    }
+    if mask & 1 << 17 == 1 << 17 {
+        result.push(String::from("Shift"));
+    }
+    if mask & 1 << 18 == 1 << 18 {
+        result.push(String::from("Control"));
+    }
+    if mask & 1 << 19 == 1 << 19 {
+        result.push(String::from("Option"));
+    }
+
+    println!("mask is {}, comand is {}",mask, 1 << 20);
+    if mask & 1 << 20 == 1 << 20 {
+        result.push(String::from("Command"));
+    }
+    if mask & 1 << 21 == 1 << 21 {
+        result.push(String::from("NumericPad"));
+    }
+    if mask & 1 << 22 == 1 << 22 {
+        result.push(String::from("Help"));
+    }
+    if mask & 1 << 23 == 1 << 23 {
+        result.push(String::from("Function"));
+    }
+    return result;
+}
+
+fn getModifierFromKeyCode(keycode: u64) -> u64 {
+    let mut result = 1;
+    if keycode == 57 {
+        result = 1 << 16;
+    } else if keycode == 56 || keycode == 60 {
+        result = 1 << 17;
+    } else if keycode == 62 {
+        result = 1 << 18;
+    } else if keycode == 58 || keycode == 61 {
+        result = 1 << 19;
+    } else if keycode == 55 {
+        result = 1 << 20;
+    } else {
+        result = 1;
+    }
+    return result;
+}
+
 
 // #[warn(dead_code)
 fn ignore_mouse_event_for_window(app: AppHandle) {
@@ -155,28 +213,78 @@ fn main() {
 	.setup(|app| {
         let app_cp = app.handle(); 
 
-        let block = ConcreteBlock::new(move |event: id| {
-            let characters = NSString::retain(unsafe { msg_send![&*event, characters] }).to_string();
-            println!("event keydown is {}",characters);
-            app_cp.emit_all("keyDown", Payload { message: characters.into(), reason: 1}).unwrap();
-        });
+
 
         unsafe {
+            let block = ConcreteBlock::new(move |event: id| {
+                let i_code: u64 = msg_send![&*event, keyCode];
+                let char_code = i_code.to_string();
+                let characters = NSString::retain(msg_send![&*event, characters]).to_string();
+                println!("event down is {}, code is {} number is {}",characters,char_code, i_code);
+    
+                app_cp.emit_all("keyDown", Payload { message: char_code, reason: 1}).unwrap();
+                // match RECORDS.get(&char_code as &str) {
+                //     Some(code) => {
+                //         let c = String::from(*code);
+
+                //         app_cp.emit_all("keyDown", Payload { message: c, reason: 1}).unwrap();
+                //     },
+                //     None => app_cp.emit_all("keyDown", Payload { message: characters.into(), reason: 1}).unwrap(),
+                // }
+            });
+
             // keydown 1024,change 4096
             msg_send![class!(NSEvent), addGlobalMonitorForEventsMatchingMask:1024
                 handler:block]
         }
 
-        let app_cp2 = app.handle();        
-        let block2 = ConcreteBlock::new(move |event: id| {
-            let characters = NSString::retain(unsafe { msg_send![&*event, characters] }).to_string();
-            println!("event change is {}",characters);
-            app_cp2.emit_all("keyDown", Payload { message: characters.into(), reason: 2}).unwrap();
-        });
     
         unsafe {
+            let app_cp2 = app.handle();        
+            let block2 = ConcreteBlock::new(move |event: id| {
+                let i_code: u64 = msg_send![&*event, keyCode];
+                let char_code = i_code.to_string();
+                let characters = NSString::retain(msg_send![&*event, characters]).to_string();
+                println!("event up is {}, code is {}, number is {}",characters,char_code,i_code);
+    
+                app_cp2.emit_all("keyDown", Payload { message: char_code, reason: 2}).unwrap();
+                
+                // match RECORDS.get(&char_code as &str) {
+                //     Some(code) => {
+                //         let c = String::from(*code);
+                //         app_cp2.emit_all("keyDown", Payload { message: c, reason: 2}).unwrap();
+                //     },
+                //     None => app_cp2.emit_all("keyDown", Payload { message: characters.into(), reason: 2}).unwrap(),
+                // }
+            });
+
             // keydown 1024,change 4096
             msg_send![class!(NSEvent), addGlobalMonitorForEventsMatchingMask:2048
+                handler:block2]
+        }
+
+        unsafe {
+            let app_cp2 = app.handle();
+            let block2 = ConcreteBlock::new(move |event: id| {
+                let i_code: u64 = msg_send![&*event, modifierFlags];
+                let key_code: u64 = msg_send![&*event, keyCode];
+                let char_code = key_code.to_string();
+                let modifiers = latestModifierFlags(i_code);
+
+                let modifiers_str = modifiers.join(",");
+                let result = isSelectModifierFlags(i_code, getModifierFromKeyCode(key_code));
+                println!("event change ,str is {} code is {}, number is {} result is {},",modifiers_str,key_code,i_code,result);
+                println!("keycode is {}, char is {}",key_code,char_code);
+                if result == true {
+                    println!("char code is {}", char_code);
+                    app_cp2.emit_all("keyDown", Payload { message: char_code, reason: 1}).unwrap();
+                } else {
+                    app_cp2.emit_all("keyDown", Payload { message: char_code, reason: 2}).unwrap();
+                }
+            });
+
+            // keydown 1024,change 4096
+            msg_send![class!(NSEvent), addGlobalMonitorForEventsMatchingMask:4096
                 handler:block2]
         }
 
